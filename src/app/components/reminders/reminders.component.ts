@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgRedux, select } from '@angular-redux/store';
-import { AppState } from '../../store/state';
+import { IAppState } from '../../store/state';
 import { ADD_REMINDER, REMOVE_REMINDER } from '../../actions/action.types';
 
 @Component({
@@ -10,16 +10,17 @@ import { ADD_REMINDER, REMOVE_REMINDER } from '../../actions/action.types';
 })
 export class RemindersComponent implements OnInit {
   @select() reminders;
+  protected model: string = ""
 
-  constructor(private ngRedux: NgRedux<AppState>) { }
+  constructor(private ngRedux: NgRedux<IAppState>) { }
 
   ngOnInit() {
   }
   addReminder() {
-    this.ngRedux.dispatch({type: ADD_REMINDER})
+    this.ngRedux.dispatch({type: ADD_REMINDER, reminder: this.model})
   }
-  removeReminder() {
-    this.ngRedux.dispatch({type: REMOVE_REMINDER})
+  removeReminder(reminder) {
+    this.ngRedux.dispatch({type: REMOVE_REMINDER, reminder})
   }
 
 }

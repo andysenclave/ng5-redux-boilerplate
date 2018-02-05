@@ -1,3 +1,37 @@
-<p>
-  reminders works!
-</p>
+<h6>Create Reminder:</h6>
+<form (ngSubmit)="addReminder()" #reminderForm="ngForm">
+  <div class="form-row">
+    <div class="col-auto">
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Call Anne"
+          id="reminder"
+          [(ngModel)]="model"
+          name="reminder"
+          #description="ngModel">
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">+ Create</button>
+    </div>
+  </div>
+</form>
+<br />
+<h6>Reminder List:</h6>
+<div *ngIf="(reminders | async)?.length!=0">
+<table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th>#</th>
+      <th>Reminder</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rem of reminders | async">     
+      <td><span (click)="removeReminder(rem)">{{ rem }}</span></td>
+      <td><button class="btn btn-primary" (click)="removeReminder(rem)">-</button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
